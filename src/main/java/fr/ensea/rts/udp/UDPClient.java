@@ -68,11 +68,19 @@ public final class UDPClient {
         InetAddress address = InetAddress.getByName(host);
         byte[] data = message.getBytes(StandardCharsets.UTF_8);
 
-        try (DatagramSocket socket = new DatagramSocket()) {
-            DatagramPacket packet = new DatagramPacket(
-                    data, data.length, address, port);
 
-            socket.send(packet);
+try (DatagramSocket socket = new DatagramSocket()) {
+
+    // Enable UDP broadcast when using a broadcast destination.
+    if (host.equals("255.255.255.255")) {
+        socket.setBroadcast(true);
+    }
+
+    DatagramPacket packet = new DatagramPacket(
+            data, data.length, address, port);
+
+    socket.send(packet);
+
 
             System.out.println("Message sent to "
                     + host + ":" + port);
