@@ -10,7 +10,7 @@ This lab studies UDP communication using Java sockets. We implement a UDP client
 ## Project structure
 
 ```text
-src/
+src/test/java
   UDPClient.java             # Interactive client (Steps 3–4, 9)
   UDPServer.java             # Basic server (Steps 1–2, 9)
   UDPClientSeq.java          # Sequence-number client (Step 11)
