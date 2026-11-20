@@ -68,6 +68,21 @@ javac -d out src\main\java\fr\ensea\rts\udp\*.java
 
 Use separate output folders to keep the two sets of programs clear.
 
+### Run the Executable JARThe project includes an executable `UDPServer.jar`.
+
+Run the UDP server directly without compiling the source code:
+
+```powershell
+java -jar UDPServer.jar 8080 1024
+```
+
+- `8080`: UDP listening port.
+- `1024`: Receive buffer size in bytes.
+
+The JAR was tested successfully with Java 25.
+
+To stop the server, press `Ctrl+C`.
+
 ## Part 1 — Creating a UDP client-server (Steps 1–4)
 
 ### Steps 1–2: UDP server and Ncat
@@ -137,6 +152,15 @@ java -cp out fr.ensea.rts.udp.UDPServer 8080 65507
 ```powershell
 java -cp out fr.ensea.rts.udp.DatagramSizeTest 192.168.32.3 8080
 ```
+Our test configuration was:
+
+- Client IP: `192.168.32.182`
+- Server IP: `192.168.32.3`
+- UDP port: `8080`
+
+We used the following Wireshark display filter:
+
+`ip.addr == 192.168.32.3`
 
 Capture packets on the active network interface in Wireshark. Our observed results were:
 
@@ -327,7 +351,7 @@ java -cp out fr.ensea.rts.udp.UDPClient 192.168.35.255 8888 "Hello Broadcast fro
 
 ## Notes and limitations
 
-- Both sets of Java files must be available in the checkout to run every command above. The current Git branches do not yet contain the complete combined project.
+- The `integration-tp2-final` branch contains all 15 Java classes, the executable `UDPServer.jar`, the README, and the lab report PDF.
 - Some experiments (especially Part 3 and the measured results of Part 4) need their observed outputs and screenshots added to the lab report.
 - On Windows, allow incoming Java UDP traffic through the firewall when testing between computers.
 - For Wireshark, select the actual active network interface; loopback and Wi-Fi captures may show different details.
