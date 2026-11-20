@@ -8,20 +8,6 @@ This lab studies UDP communication using Java sockets. We implement a UDP client
 
 The project currently contains **two source layouts** developed on separate Git branches. The commands below use the source layout that contains each program. **To run all parts from one checkout, both sets of files must first be present in the same working tree.**
 
-## Requirements
-
-- Java JDK (tested with Java 25); `java` and `javac` available in the terminal
-- Windows PowerShell (commands below); other systems can adapt the paths
-- Ncat (optional, for Step 2)
-- Wireshark (for Steps 7 and 9)
-- Two computers on the same network for the cross-computer tests
-
-Check your Java installation:
-
-```powershell
-java -version
-javac -version
-```
 
 ## Project structure
 
@@ -46,27 +32,6 @@ src/main/java/fr/ensea/rts/udp/
   PacketFormatter.java      # UDP packet decoding and display
 ```
 
-The classes under `src/` have **no Java package**. The classes under `src/main/java/` belong to the `fr.ensea.rts.udp` package. They include classes with the same short names (`UDPClient` and `UDPServer`), but they are different programs with different command-line arguments.
-
-## Compilation
-
-Run these commands from the repository root in PowerShell.
-
-**Programs in `src/` (Parts 1, 3, and 4):**
-
-```powershell
-New-Item -ItemType Directory -Force out-basic | Out-Null
-javac -d out-basic src\*.java
-```
-
-**Packaged programs (Parts 2 and 5):**
-
-```powershell
-New-Item -ItemType Directory -Force out | Out-Null
-javac -d out src\main\java\fr\ensea\rts\udp\*.java
-```
-
-Use separate output folders to keep the two sets of programs clear.
 
 ### Run the Executable JARThe project includes an executable `UDPServer.jar`.
 
@@ -81,49 +46,31 @@ java -jar UDPServer.jar 8080 1024
 
 The JAR was tested successfully with Java 25.
 
-To stop the server, press `Ctrl+C`.
 
 ## Part 1 — Creating a UDP client-server (Steps 1–4)
 
 ### Steps 1–2: UDP server and Ncat
 
-Start the server (default port: `8080`):
-
 ```powershell
 java -cp out-basic UDPServer 8080
 ```
 
-In another terminal, test it with Ncat:
+In another terminal:
 
 ```powershell
 ncat -u localhost 8080
 ```
 
-Type a message and press Enter. The server prints the sender IP address, source port, and UTF-8 message. Its receive buffer is 1024 bytes.
-
 ### Steps 3–4: Interactive UDP client
-
-Start the same server, then launch the interactive client in another terminal:
 
 ```powershell
 java -cp out-basic UDPClient localhost 8080
 ```
 
-Type several messages. The client sends each line as a UDP datagram. On Windows, use **Ctrl+Z**, then **Enter**, to close standard input. You can also start two clients in different terminals and send messages to the same server. To test between computers, replace `localhost` with the receiving computer's IP address.
-
 ## Part 2 — Datagram analysis (Steps 5–8)
 
 ### Step 5: Receive buffer size
 
-The packaged `UDPServer` accepts a port and an optional buffer size:
-
-```powershell
-java -cp out fr.ensea.rts.udp.UDPServer 8080 64
-java -cp out fr.ensea.rts.udp.UDPServer 8080 2048
-java -cp out fr.ensea.rts.udp.UDPServer 8080 65507
-```
-
-Run **one server at a time** on port 8080. With a 64-byte buffer, a longer message is truncated; the rest is not delivered as a second datagram. A larger buffer can receive a larger datagram without this application-level truncation.
 
 ### Step 6: Datagram size limits
 
