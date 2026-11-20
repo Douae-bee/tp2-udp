@@ -6,8 +6,6 @@ Java for Networks — 3RTS, ENSEA — 2026–2027
 
 This lab studies UDP communication using Java sockets. We implement a UDP client and server, explore datagram size limits and fragmentation, observe connectionless communication, add basic reliability mechanisms, and test multicast and broadcast.
 
-The project currently contains **two source layouts** developed on separate Git branches. The commands below use the source layout that contains each program. **To run all parts from one checkout, both sets of files must first be present in the same working tree.**
-
 
 ## Project structure
 
