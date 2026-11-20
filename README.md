@@ -235,4 +235,4 @@ java -cp out fr.ensea.rts.udp.UDPClient 192.168.35.255 8888 "Hello Broadcast fro
 
 ## Conclusion
 
-This lab demonstrates basic UDP communication, datagram limits and IP fragmentation, connectionless behavior, application-level reliability, multicast, and broadcast. The programs can be compiled and run from the command line, with different client-server pairs for different experiments.
+This lab demonstrates basic UDP communication, datagram limits and IP fragmentation, connectionless behavior, application-level reliability, multicast, and broadcast.
